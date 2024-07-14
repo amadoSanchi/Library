@@ -126,7 +126,7 @@ dialog p:last-of-type {
     gap: 10px;
 }
 
-#close {
+#dialog__close {
     width: 3ch;
 }
 

@@ -1,3 +1,7 @@
+const btnAddBook = document.querySelector("#btnAddBook");
+const dialogNode = document.querySelector("dialog");
+const dialog__close = document.querySelector("#dialog__close");
+const dialog__btnAddBook = document.querySelector("#dialog__btnAddBook");
 
 function Book(title, author, pages, read) {
     this.title = title;
@@ -5,34 +9,6 @@ function Book(title, author, pages, read) {
     this.pages = pages;
     this.read = read;
 }
-
-const myLibrary = [];
-
-/* Default books */
-
-const book1 = new Book("Twilight of the Idols", "Friedrich Nietzsche", 208, true);
-myLibrary.push(book1);
-
-const book2 = new Book("The Antichrist", "Friedrich Nietzsche", 91, true);
-myLibrary.push(book2);
-
-const book3 = new Book("Human, All-Too Human", "Friedrich Nietzsche", 536, false);
-myLibrary.push(book3);
-
-const book4 = new Book("Daybreak", "Friedrich Nietzsche", 296, false);
-myLibrary.push(book4);
-
-const book5 = new Book("The Gay Science", "Friedrich Nietzsche", 516, false);
-myLibrary.push(book5);
-
-const book6 = new Book("Beyond Good and Evil", "Friedrich Nietzsche", 240, false);
-myLibrary.push(book6);
-
-const book7 = new Book("On the Genealogy of Morals", "Friedrich Nietzsche", 208, false);
-myLibrary.push(book7);
-
-const book8 = new Book("Thus Spoke Zarathustra", "Friedrich Nietzsche", 335, false);
-myLibrary.push(book8);
 
 function loadTable() {
 
@@ -77,27 +53,27 @@ function loadTable() {
     }
 }
 
-loadTable();
-
 function getReadMessage(flag) {
     let readMessage = flag ? "Have Read This" : "Not Read Yet";
     return readMessage;
 }
 
-const btnAddBook = document.querySelector("#btnAddBook");
-const dialogNode = document.querySelector("dialog");
+function resetCardsIds(id) {
+    const cardNodeList = Array.from(document.querySelectorAll('.card'));
+    for (let i = id; i < cardNodeList.length; i++){
+        cardNodeList[i].setAttribute('data-id', i);
+    }
+}
+
+/* addEventListeners */
 
 btnAddBook.addEventListener("click", () => {
     dialogNode.showModal();
 });
 
-const btnClose = document.querySelector("#close");
-
-btnClose.addEventListener("click", () => {
+dialog__close.addEventListener("click", () => {
     dialogNode.close();
 });
-
-const dialog__btnAddBook = document.querySelector("#dialog__btnAddBook");
 
 dialog__btnAddBook.addEventListener("click", () => {
     let formNode = document.querySelector("form");
@@ -127,8 +103,6 @@ dialog__btnAddBook.addEventListener("click", () => {
     });
 });
 
-removeBook(Array.from(document.querySelectorAll('.remove')));
-
 function removeBook(list) {
     list.forEach(element => {    
             element.addEventListener("click", (e) => {
@@ -147,16 +121,6 @@ function removeBook(list) {
     });
 }
 
-
-function resetCardsIds(id) {
-    const cardNodeList = Array.from(document.querySelectorAll('.card'));
-    for (let i = id; i < cardNodeList.length; i++){
-        cardNodeList[i].setAttribute('data-id', i);
-    }
-}
-
-changeReadStatus(Array.from(document.querySelectorAll('.read')));
-
 function changeReadStatus(list) {
     list.forEach(element => {
         element.addEventListener("click", (e) => {
@@ -167,3 +131,35 @@ function changeReadStatus(list) {
         });
     });
 }
+/* Default books */
+
+let myLibrary = [];
+
+const book1 = new Book("Twilight of the Idols", "Friedrich Nietzsche", 208, true);
+myLibrary.push(book1);
+
+const book2 = new Book("The Antichrist", "Friedrich Nietzsche", 91, true);
+myLibrary.push(book2);
+
+const book3 = new Book("Human, All-Too Human", "Friedrich Nietzsche", 536, false);
+myLibrary.push(book3);
+
+const book4 = new Book("Daybreak", "Friedrich Nietzsche", 296, false);
+myLibrary.push(book4);
+
+const book5 = new Book("The Gay Science", "Friedrich Nietzsche", 516, false);
+myLibrary.push(book5);
+
+const book6 = new Book("Beyond Good and Evil", "Friedrich Nietzsche", 240, false);
+myLibrary.push(book6);
+
+const book7 = new Book("On the Genealogy of Morals", "Friedrich Nietzsche", 208, false);
+myLibrary.push(book7);
+
+const book8 = new Book("Thus Spoke Zarathustra", "Friedrich Nietzsche", 335, false);
+myLibrary.push(book8);
+
+loadTable();
+
+removeBook(Array.from(document.querySelectorAll('.remove')));
+changeReadStatus(Array.from(document.querySelectorAll('.read')));
