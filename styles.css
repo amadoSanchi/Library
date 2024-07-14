@@ -1,7 +1,24 @@
-/*
-Arreglar grid (20 mins.), 10:25
 
-*/
+/* || RESET */
+
+body {
+    background-color: #1E1E1E;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    gap: 2rem;
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+}
 
 button {
     background-color: #EC1D24;
@@ -14,60 +31,56 @@ button:hover, .card button:hover {
     cursor: pointer;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    color: white;
-    font-family: "Roboto", sans-serif;
-    font-style: normal;
-    font-weight: 300;
-    background-color: #1E1E1E;
-}
-
-header {
-    background-color: black;
-    text-align: center;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 10px;
-}
-
 header button, #dialog__btnAddBook {
     border-radius: 10px;
     padding: 0.5rem 2rem;
 }
 
-main {
-    background-color: #2E2E2E;
-    height: 100%;
-    align-self: center;
+/* || BLOCKS */
+
+/* header */
+
+header {
+    align-items: center;
+    background-color: black;
     display: flex;
-    padding: 1rem;
-    width: 50%;
+    flex-direction: column;
     gap: 10px;
+    justify-content: center;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+/* main */
+
+main {
+    align-self: center;
+    background-color: #2E2E2E;
+    display: flex;
     display: flex;
     flex-wrap: wrap;
+    gap: 10px;
+    height: 100%;
     justify-content: center;
+    padding: 1rem;
+    width: 50%;
 }
 
 .card {
-    width: 200px;
     background-color: #EC1D24;
     display: flex;
     flex-direction: column;
-    padding: 0.5rem;
     gap: 5px;
     justify-content: center;
+    padding: 0.5rem;
+    width: 200px;
 }
 
 .card button {
     background-color: #f04b51;
     padding: 0.25rem 0;
 }
+
 
 .author, .pages {
     font-size: 0.95rem;
@@ -76,29 +89,22 @@ main {
 
 .card > *  {
     display: block;
-    width: 100%;
     text-align: center;
+    width: 100%;
 }
 
-h1 {
-    font-size: 1.5rem;
-}
-
-h1, h2, h3 {
-    font-weight: bold;
-}
-
+/* dialog */
 
 dialog {
-    margin: auto;
     background-color: black;
     color: inherit;
+    margin: auto;
 }
 
 dialog form {
+    background-color: black;
     display: flex;
     flex-direction: column;
-    background-color: black;
     gap: 0.75rem;
 }
 
