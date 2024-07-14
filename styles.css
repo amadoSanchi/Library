@@ -1,0 +1,144 @@
+/*
+Arreglar grid (20 mins.), 10:25
+
+*/
+
+button {
+    background-color: #EC1D24;
+    border: none;
+    color: inherit;
+}
+
+button:hover, .card button:hover {
+    background-color: green;
+    cursor: pointer;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    background-color: #1E1E1E;
+}
+
+header {
+    background-color: black;
+    text-align: center;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+header button, #dialog__btnAddBook {
+    border-radius: 10px;
+    padding: 0.5rem 2rem;
+}
+
+main {
+    background-color: #2E2E2E;
+    height: 100%;
+    align-self: center;
+    display: flex;
+    padding: 1rem;
+    width: 50%;
+    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    width: 200px;
+    background-color: #EC1D24;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    gap: 5px;
+    justify-content: center;
+}
+
+.card button {
+    background-color: #f04b51;
+    padding: 0.25rem 0;
+}
+
+.author, .pages {
+    font-size: 0.95rem;
+    font-style: italic;
+}
+
+.card > *  {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+}
+
+
+dialog {
+    margin: auto;
+    background-color: black;
+    color: inherit;
+}
+
+dialog form {
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    gap: 0.75rem;
+}
+
+dialog p {
+    display: flex;
+    flex-direction: column;
+}
+
+dialog p:first-of-type, dialog p:last-of-type {
+    flex-direction: row;
+} 
+
+dialog p:first-of-type {
+    display: flex;
+    justify-content: space-between;
+}
+
+dialog p:last-of-type {
+    gap: 10px;
+}
+
+#close {
+    width: 3ch;
+}
+
+dialog b {
+    font-size: 1.25rem;
+}
+
+::backdrop {
+    background-image: linear-gradient(
+      45deg,
+      magenta,
+      rebeccapurple,
+      dodgerblue,
+      green
+    );
+    opacity: 0.75;
+  }
+
+  dialog label::after {
+    content:"*";
+  }
