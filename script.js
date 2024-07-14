@@ -97,8 +97,7 @@ dialog__close.addEventListener("click", () => {
 dialog__btnAddBook.addEventListener("click", () => {
     const formNode = document.querySelector("form");
 
-    formNode.addEventListener("submit", function(e) {
-        e.preventDefault();
+    formNode.addEventListener("submit", function() {
 
         let input__title = document.querySelector("#title").value;
         let input__author = document.querySelector("#author").value;
