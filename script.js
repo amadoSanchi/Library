@@ -3,6 +3,8 @@ const dialogNode = document.querySelector("dialog");
 const dialog__close = document.querySelector("#dialog__close");
 const dialog__btnAddBook = document.querySelector("#dialog__btnAddBook");
 
+/* Default books */
+
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -10,9 +12,26 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
+let myLibrary = [];
+
+const defaultBooks = [
+    new Book("Twilight of the Idols", "Friedrich Nietzsche", 208, true),
+    new Book("The Antichrist", "Friedrich Nietzsche", 91, true),
+    new Book("Human, All-Too Human", "Friedrich Nietzsche", 536, false),
+    new Book("Daybreak", "Friedrich Nietzsche", 296, false),
+    new Book("The Gay Science", "Friedrich Nietzsche", 516, false),
+    new Book("Beyond Good and Evil", "Friedrich Nietzsche", 240, false),
+    new Book("On the Genealogy of Morals", "Friedrich Nietzsche", 208, false),
+    new Book("Thus Spoke Zarathustra", "Friedrich Nietzsche", 335, false)
+]
+
+myLibrary.push(...defaultBooks);
+
+/* Functions */
+
 function loadTable() {
 
-    let mainNode = document.querySelector("main");
+    const mainNode = document.querySelector("main");
     mainNode.innerHTML = "";
 
     for (let i = 0; i < myLibrary.length; i++) {
@@ -65,7 +84,7 @@ function resetCardsIds(id) {
     }
 }
 
-/* addEventListeners */
+/* Event Listeners */
 
 btnAddBook.addEventListener("click", () => {
     dialogNode.showModal();
@@ -76,17 +95,19 @@ dialog__close.addEventListener("click", () => {
 });
 
 dialog__btnAddBook.addEventListener("click", () => {
-    let formNode = document.querySelector("form");
+    const formNode = document.querySelector("form");
 
-    formNode.addEventListener("submit", function() {
+    formNode.addEventListener("submit", function(e) {
+        e.preventDefault();
+
         let input__title = document.querySelector("#title").value;
         let input__author = document.querySelector("#author").value;
         let input__pages = document.querySelector("#pages").value;
         let input__read = document.querySelector("#read").checked;
 
         if (input__title | input__author | input__pages) {
-            let tempBook = new Book(input__title, input__author, input__pages, input__read);
-            myLibrary.push(tempBook);
+            const newBook = new Book(input__title, input__author, input__pages, input__read);
+            myLibrary.push(newBook);
     
             loadTable();
     
@@ -97,8 +118,6 @@ dialog__btnAddBook.addEventListener("click", () => {
     
             removeBook(Array.from(document.querySelectorAll('.remove')));
             changeReadStatus(Array.from(document.querySelectorAll('.read')));
-        } else {
-            return;
         }
     });
 });
@@ -126,40 +145,12 @@ function changeReadStatus(list) {
         element.addEventListener("click", (e) => {
             let parentElement = e.target.parentNode;
             let id = parentElement.getAttribute('data-id')
-            e.target.textContent = getReadMessage(!myLibrary[id].read);
             myLibrary[id].read = !myLibrary[id].read;
+            e.target.textContent = getReadMessage(myLibrary[id].read);
         });
     });
 }
-/* Default books */
-
-let myLibrary = [];
-
-const book1 = new Book("Twilight of the Idols", "Friedrich Nietzsche", 208, true);
-myLibrary.push(book1);
-
-const book2 = new Book("The Antichrist", "Friedrich Nietzsche", 91, true);
-myLibrary.push(book2);
-
-const book3 = new Book("Human, All-Too Human", "Friedrich Nietzsche", 536, false);
-myLibrary.push(book3);
-
-const book4 = new Book("Daybreak", "Friedrich Nietzsche", 296, false);
-myLibrary.push(book4);
-
-const book5 = new Book("The Gay Science", "Friedrich Nietzsche", 516, false);
-myLibrary.push(book5);
-
-const book6 = new Book("Beyond Good and Evil", "Friedrich Nietzsche", 240, false);
-myLibrary.push(book6);
-
-const book7 = new Book("On the Genealogy of Morals", "Friedrich Nietzsche", 208, false);
-myLibrary.push(book7);
-
-const book8 = new Book("Thus Spoke Zarathustra", "Friedrich Nietzsche", 335, false);
-myLibrary.push(book8);
 
 loadTable();
-
 removeBook(Array.from(document.querySelectorAll('.remove')));
 changeReadStatus(Array.from(document.querySelectorAll('.read')));
