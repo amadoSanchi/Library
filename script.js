@@ -34,10 +34,6 @@ myLibrary.push(book7);
 const book8 = new Book("Thus Spoke Zarathustra", "Friedrich Nietzsche", 335, false);
 myLibrary.push(book8);
 
-function addBookToLibrary() {
-  // do stuff here
-}
-
 function loadTable() {
 
     let mainNode = document.querySelector("main");
@@ -51,35 +47,29 @@ function loadTable() {
     
         let titleNode = document.createElement('h2');
         titleNode.setAttribute('class', 'title');
-        let titleTextnode = document.createTextNode(myLibrary[i].title);
-        titleNode.appendChild(titleTextnode);
+        titleNode.textContent = myLibrary[i].title;
         cardNode.appendChild(titleNode);
     
         let authorNode = document.createElement('p');
         authorNode.setAttribute('class', 'author');
-        let authorTextnode = document.createTextNode(myLibrary[i].author);
-        authorNode.appendChild(authorTextnode);
+        authorNode.textContent = myLibrary[i].author;
         cardNode.appendChild(authorNode);
     
         let pagesNode = document.createElement('p');
         pagesNode.setAttribute('class', 'pages');
-        let pagesTextnode = document.createTextNode("Pages: " + myLibrary[i].pages);
-        pagesNode.appendChild(pagesTextnode);
+        pagesNode.textContent = "Pages: " + myLibrary[i].pages;
         cardNode.appendChild(pagesNode);
     
         let readNode = document.createElement('button');
         readNode.setAttribute('class', 'read');
         readNode.setAttribute('type', 'button');
-    
-        let readTextnode = document.createTextNode(getReadMessage(myLibrary[i].read));
-        readNode.appendChild(readTextnode);
+        readNode.textContent = getReadMessage(myLibrary[i].read);
         cardNode.appendChild(readNode);
     
         let removeNode = document.createElement('button');
         removeNode.setAttribute('class', 'remove');
         removeNode.setAttribute('type', 'button');
-        let removeTextnode = document.createTextNode("Remove");
-        removeNode.appendChild(removeTextnode);
+        removeNode.textContent = "Remove";
         cardNode.appendChild(removeNode);
     
         let mainNode = document.querySelector('main');
@@ -110,41 +100,53 @@ btnClose.addEventListener("click", () => {
 const dialog__btnAddBook = document.querySelector("#dialog__btnAddBook");
 
 dialog__btnAddBook.addEventListener("click", () => {
-    let input__title = document.querySelector("#title").value;
-    let input__author = document.querySelector("#author").value;
-    let input__pages = document.querySelector("#pages").value;
-    let input__read = document.querySelector("#read").checked;
-
     let formNode = document.querySelector("form");
 
     formNode.addEventListener("submit", function() {
-        tempBook = new Book(input__title, input__author, input__pages, input__read);
-        myLibrary.push(tempBook);
+        let input__title = document.querySelector("#title").value;
+        let input__author = document.querySelector("#author").value;
+        let input__pages = document.querySelector("#pages").value;
+        let input__read = document.querySelector("#read").checked;
 
-        loadTable();
-
-        document.querySelector("#title").value = "";
-        document.querySelector("#author").value = "";
-        document.querySelector("#pages").value = "";
-        document.querySelector("#read").checked = false;
-    });
-});
-
-const btnRemoveList = Array.from(document.querySelectorAll('.remove'));
-
-btnRemoveList.forEach(element => {
-    element.addEventListener("click", (e) => {
-        let parentElement = e.target.parentNode;
-        if (parentElement.getAttribute('class') === "card") {
-            parentElement.remove();
-            myLibrary.splice(parentElement.getAttribute('data-id'), 1);
-            resetCardsIds(parentElement.getAttribute('data-id'));
-        }
-        if (myLibrary.length === 0) {
-            document.querySelector("main").appendChild(document.createTextNode("No items yet."));
+        if (input__title | input__author | input__pages) {
+            let tempBook = new Book(input__title, input__author, input__pages, input__read);
+            myLibrary.push(tempBook);
+    
+            loadTable();
+    
+            document.querySelector("#title").value = "";
+            document.querySelector("#author").value = "";
+            document.querySelector("#pages").value = "";
+            document.querySelector("#read").checked = false;
+    
+            removeBook(Array.from(document.querySelectorAll('.remove')));
+            changeReadStatus(Array.from(document.querySelectorAll('.read')));
+        } else {
+            return;
         }
     });
 });
+
+removeBook(Array.from(document.querySelectorAll('.remove')));
+
+function removeBook(list) {
+    list.forEach(element => {    
+            element.addEventListener("click", (e) => {
+    
+            let parentElement = e.target.parentNode;
+            if (parentElement.getAttribute('class') === "card") {
+                parentElement.remove();
+                myLibrary.splice(parentElement.getAttribute('data-id'), 1);
+                resetCardsIds(parentElement.getAttribute('data-id'));
+            }
+            if (myLibrary.length === 0) {
+
+                document.querySelector("main").textContent = "No items yet.";
+            }
+        });
+    });
+}
+
 
 function resetCardsIds(id) {
     const cardNodeList = Array.from(document.querySelectorAll('.card'));
@@ -153,12 +155,15 @@ function resetCardsIds(id) {
     }
 }
 
-const btnReadList = Array.from(document.querySelectorAll('.read'));
-btnReadList.forEach(element => {
-    element.addEventListener("click", (e) => {
-        let parentElement = e.target.parentNode;
-        let id = parentElement.getAttribute('data-id')
-        e.target.textContent = getReadMessage(!myLibrary[id].read);
-        myLibrary[id].read = !myLibrary[id].read;
+changeReadStatus(Array.from(document.querySelectorAll('.read')));
+
+function changeReadStatus(list) {
+    list.forEach(element => {
+        element.addEventListener("click", (e) => {
+            let parentElement = e.target.parentNode;
+            let id = parentElement.getAttribute('data-id')
+            e.target.textContent = getReadMessage(!myLibrary[id].read);
+            myLibrary[id].read = !myLibrary[id].read;
+        });
     });
-});
+}
